@@ -1,0 +1,5 @@
+1. Use gensim to generate a LSI model with 300 topics for the wiki.txt, then query based on the model.
+
+2. Based on 1, make the full post where people look at as the query instead of the project name.
+
+3. Based on 2, add more terms that are consist of the mailing list domain in the post to the query and make sure they all occur in the result documents.

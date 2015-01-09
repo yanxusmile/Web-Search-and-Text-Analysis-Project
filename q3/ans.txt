@@ -1,0 +1,54 @@
+Q&A
+Increasing s makes the doc weight tend to the doc itself (tend to unit length normalisation) and less consider the effect the length of doc bring to the biased weight (tend to pivoted length normalization).
+When s=1, it's unit length normalisation.
+
+
+The codes in this question are based on question 1 and 2. While there are two modifications in the process of making index:
+1. In the tfidf.py, I have changed the tfidf(doc, df, ndocs, norm=True) function to tfidf(doc, df, ndocs) and only return unnormalised tfidf and the length of the tfidf document vector.
+2. In mk_inv_ind.py, I have modified the mk_inv_ind(coll_, filename, norm=True) function to mk_inv_ind(coll_, filename, s), where s is the tunable parameter for normalisation. And I have add a dictionay called len_dict to save all the document length. In the loop of calculating the tfidf, I save the length of the tfidf document vector in len_dict and also calculate the accumulative sum of all the lengths. Then get the average document length len_mean after the loop. After that, I rewrite the inverted index (unnormalised scores) to the original tfidf dividing (1-s)*len_mean + s*len_doc for every cell in index to get the pivoted length normalisation.
+
+To generate wiki inverted index:
+$python mk_inv_ind.py <coll-file> <db-file> <s>
+
+To query the encyclopaedia:
+$ cat <qry-file> | python qry_ency.py <db-file> <no.results>
+where <qry-file> is the file that place your queries in.
+
+
+$ cat qry.txt | python qry_ency.py wiki.db 10
+
+>> apache
+Apache_(disambiguation) 0.157835
+Apache_Rocks_the_Bottom! 0.152856
+Mod_proxy 0.151663
+Western_Apache_language 0.145874
+Apache_Trail 0.143866
+Plains_Apache_language 0.141442
+Mod_ssl 0.140792
+Fort_Apache_Indian_Reservation 0.139391
+Apache_TomEE 0.136530
+Fort_Apache 0.135704
+
+>> apache aries
+Aries 0.220485
+Apache_ServiceMix 0.165268
+Apache_(disambiguation) 0.157835
+Aries_Marine 0.157389
+Aries_(comics) 0.153568
+Apache_Rocks_the_Bottom! 0.152856
+Mod_proxy 0.151663
+Apache_Aries 0.151362
+USS_Aries_(PHM-5) 0.148377
+OSGi_Specification_Implementations 0.147210
+
+>> apache apache aries
+Apache_(disambiguation) 0.250162
+Apache_Rocks_the_Bottom! 0.242271
+Aries 0.241095
+Mod_proxy 0.240380
+Apache_ServiceMix 0.237173
+Western_Apache_language 0.231205
+Apache_Trail 0.228023
+Plains_Apache_language 0.224180
+Mod_ssl 0.223150
+Fort_Apache_Indian_Reservation 0.220929

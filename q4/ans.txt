@@ -1,0 +1,91 @@
+The code of this question is based on question 2.
+The modifications for qry_ency.py:
+1. add a augment 'mode' to function do_qry_inv_ind, where 0 is option turned off and 1 is option turned on.
+2. At the end of the function do_qry_inv_ind(qry_s, idx_file, mode), I have add a if-else to check the mode. If it's 0, return the same sorted result of q2. If it's 1, I have created a new list new_sorted_doc_socre. And start to check the data the same as the former result. There are two loops: outer loop for documents, inner loop for terms in document
+ 1) For each (score, doc) in it, I give it a condition variable c with initial value 1.       
+ 2) For each term in query, I check whether the doc is in the list of keys of the index[term]. If it's not, set c to 0 and break the inner loop.
+After the inner loop, I check the condition variable c. If it's 1, add the (score, doc) to the new_sorted_doc_socre.
+After outer loop finished, return the new_sorted_doc_socre. 
+
+
+
+
+Without this option turned on:
+$ cat qry.txt | python qry_ency.py ../q3/wiki.db 10 0
+
+>> apache james
+James 0.185760
+Apache_James 0.171157
+Apache_(disambiguation) 0.157835
+Apache_Rocks_the_Bottom! 0.152856
+Mod_proxy 0.151663
+Battle_of_Fort_Apache 0.146745
+Western_Apache_language 0.145874
+Apache_Trail 0.143866
+Plains_Apache_language 0.141442
+Mod_ssl 0.140792
+
+>> apache forrest
+Forrest 0.269122
+Forrest_(surname) 0.226635
+Apache_Forrest 0.218972
+John_Forrest_(disambiguation) 0.207705
+Forrest_(given_name) 0.202369
+James_Forrest 0.189919
+George_Forrest 0.184893
+Forrest_Gump_–_Original_Motion_Picture_Score 0.173833
+David_Forrest_(Australian_politician) 0.171349
+Forrest,_Manitoba 0.167464
+
+>> apache aries
+Aries 0.220485
+Apache_ServiceMix 0.165268
+Apache_(disambiguation) 0.157835
+Aries_Marine 0.157389
+Aries_(comics) 0.153568
+Apache_Rocks_the_Bottom! 0.152856
+Mod_proxy 0.151663
+Apache_Aries 0.151362
+USS_Aries_(PHM-5) 0.148377
+OSGi_Specification_Implementations 0.147210
+
+
+
+
+With this option turned on:
+$ cat qry.txt | python qry_ency.py ../q3/wiki.db 10 1
+
+>> apache james
+James 0.185760
+Apache_James 0.171157
+Battle_of_Fort_Apache 0.146745
+James_Kirker 0.139125
+Mari_Apache 0.135101
+James_H._Turpin 0.134121
+Apache–Mexico_Wars 0.131857
+Apache_Wars 0.131042
+Apache_Kid 0.128378
+James_B._Gillett 0.124260
+
+>> apache forrest
+Forrest 0.269122
+Apache_Forrest 0.218972
+Apache_Kid 0.141312
+Gump 0.137806
+Apache_XML 0.125621
+Geronimo 0.106817
+List_of_Apache_Software_Foundation_projects 0.106125
+Apache_Ambush 0.093786
+List_of_places_in_Arizona_(A–G) 0.084701
+The_Adventures_of_Rin_Tin_Tin 0.080854
+
+>> apache aries
+Aries 0.220485
+Apache_ServiceMix 0.165268
+Apache_Aries 0.151362
+OSGi_Specification_Implementations 0.147210
+Apache_Felix 0.128895
+List_of_rockets_launched_from_Esrange 0.099404
+Write-ahead_logging 0.082353
+OSGi 0.069220
+Link_16 0.053584

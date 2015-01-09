@@ -1,0 +1,44 @@
+To query the encyclopaedia:
+$ cat <qry-file> | python qry_ency.py <db-file> <no.results>
+where <qry-file> is the file that place your queries in.
+
+
+
+
+$ cat qry.txt | python qry_ency.py ../q1/wiki.db 10
+
+>> apache
+Apache_Isis 0.232290
+Southern_Apache_Museum 0.216969
+Apache_Excalibur 0.206819
+Apache_Rocks_the_Bottom! 0.199597
+Apache_Incubator 0.195659
+Fort_Apache 0.193399
+Apache_Directory 0.189683
+Apache_Forrest 0.188877
+Western_Apache_language 0.187994
+Plains_Apache_language 0.186527
+
+>> apache aries
+Aries 0.278531
+Apache_Aries 0.250711
+Apache_Isis 0.232290
+Southern_Apache_Museum 0.216969
+Apache_Excalibur 0.206819
+Apache_Rocks_the_Bottom! 0.199597
+Apache_Incubator 0.195659
+Fort_Apache 0.193399
+Apache_Directory 0.189683
+Apache_Forrest 0.188877
+
+>> apache apache aries
+Apache_Isis 0.368171
+Southern_Apache_Museum 0.343888
+Apache_Excalibur 0.327800
+Apache_Rocks_the_Bottom! 0.316355
+Apache_Aries 0.313229
+Apache_Incubator 0.310112
+Fort_Apache 0.306531
+Aries 0.304566
+Apache_Directory 0.300640
+Apache_Forrest 0.299363

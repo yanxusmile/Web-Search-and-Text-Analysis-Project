@@ -1,0 +1,4 @@
+The codes in this question are based on the workshop week 2 q3 solution you given us. The only difference is that I have modified the parse_lyrl_coll() function in coll.py to make it suitable for the wiki text. And add a 'import df' in the beginning in tfidf.py which you probably missed.
+
+To generate wiki inverted index:
+$python mk_inv_ind.py <coll-file> <db-file>

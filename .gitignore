@@ -1,0 +1,4 @@
+*.db
+*.npy
+*.pyc
+*.text
